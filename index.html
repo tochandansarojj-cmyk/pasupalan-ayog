@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="पशुपालन आयोग - पशुपालकों के लिए योजनाएं, सेवाएं और ऑनलाइन आवेदन पोर्टल">
+<title>पशुपालन आयोग | आधिकारिक पोर्टल</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --green:#126b43;
+  --dark:#08472d;
+  --orange:#f29b24;
+  --light:#f3f8f4;
+  --text:#26382e;
+  --white:#fff;
+  --border:#dce8df;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Noto Sans Devanagari',sans-serif;
+  color:var(--text);
+  background:#f7faf7;
+  line-height:1.7;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(1150px,93%);margin:auto}
+
+.topbar{
+  background:#073f29;color:white;
+  padding:7px 0;font-size:13px;
+}
+.topflex{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+.header{
+  background:white;border-bottom:1px solid var(--border);
+  padding:17px 0;
+}
+.brand{display:flex;align-items:center;gap:15px}
+.logo{
+  width:65px;height:65px;border-radius:50%;
+  background:#e8f4eb;display:grid;place-items:center;
+  font-size:35px;border:2px solid var(--green);
+}
+.brand h1{color:var(--dark);font-size:27px}
+.brand p{font-size:12px;color:#64766b}
+
+nav{background:var(--green);color:white;position:sticky;top:0;z-index:10}
+.navinner{display:flex;align-items:center;justify-content:space-between}
+.navlinks{display:flex;align-items:center;flex-wrap:wrap}
+.navlinks a{
+  padding:13px 12px;display:block;font-size:13px;
+  transition:.2s;
+}
+.navlinks a:hover,.navlinks a.active{background:#08472d}
+.menu-btn{display:none;background:none;color:white;border:0;font-size:25px;padding:8px}
+
+.hero{
+  background:linear-gradient(110deg,rgba(4,57,35,.94),rgba(17,112,66,.80)),
+  url('https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=1600&q=85') center/cover;
+  color:white;padding:75px 0;
+}
+.hero-content{max-width:680px}
+.hero h2{font-size:38px;line-height:1.4;margin-bottom:14px}
+.hero p{font-size:16px;color:#e3f1e7;margin-bottom:25px}
+.btn{
+  border:0;padding:11px 19px;border-radius:6px;
+  background:var(--green);color:white;font-weight:600;
+  display:inline-block;transition:.2s;
+}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+.btn-orange{background:var(--orange);color:#222}
+.btn-light{background:white;color:var(--green)}
+.btn-red{background:#c53d3d}
+.btn-small{padding:6px 12px;font-size:13px}
+
+.ticker{background:#fff5e7;border-bottom:1px solid #f1dfc4;padding:12px 0}
+.ticker strong{color:#b16b0b;margin-right:10px}
+
+.section{padding:48px 0}
+.section-title{text-align:center;margin-bottom:30px}
+.section-title h2{font-size:27px;color:var(--dark)}
+.section-title p{font-size:14px;color:#718076}
+.section-title:after{
+ content:"";display:block;width:65px;height:3px;
+ background:var(--orange);margin:10px auto;
+}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:17px;margin-top:-30px;position:relative}
+.stat{
+ background:white;padding:22px;border-radius:9px;
+ box-shadow:0 4px 18px #0000000c;text-align:center;
+ border-bottom:3px solid var(--green)
+}
+.stat .emoji{font-size:30px}
+.stat h3{font-size:26px;color:var(--green)}
+.stat p{font-size:13px;color:#68786e}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+ background:white;border:1px solid var(--border);
+ border-radius:10px;padding:22px;box-shadow:0 3px 12px #00000008;
+}
+.card-icon{font-size:34px;margin-bottom:10px}
+.card h3{color:var(--dark);font-size:18px;margin-bottom:8px}
+.card p{font-size:14px;color:#6a796f;margin-bottom:15px}
+
+.notice-list{background:white;border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.notice{
+ padding:14px 18px;border-bottom:1px solid var(--border);
+ display:flex;justify-content:space-between;gap:15px;font-size:14px;
+}
+.notice:last-child{border:0}
+.new{background:#ffebd2;color:#a75b00;border-radius:4px;padding:2px 7px;font-size:11px}
+
+.page{display:none;min-height:65vh}
+.page.active{display:block}
+.page-heading{
+ background:#e9f3eb;padding:30px 0;border-bottom:1px solid var(--border);
+ margin-bottom:30px;
+}
+.page-heading h2{font-size:27px;color:var(--dark)}
+
+.form-card{max-width:780px;margin:auto;background:white;padding:28px;border-radius:10px;border:1px solid var(--border)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+label{font-size:14px;font-weight:600}
+input,select,textarea{
+ width:100%;padding:11px;border:1px solid #ccd9cf;
+ border-radius:6px;outline:none;background:#fff;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--green)}
+textarea{min-height:100px;resize:vertical}
+.help{font-size:12px;color:#718076}
+
+.result{
+ margin-top:18px;padding:15px;background:#edf7ef;
+ border:1px solid #c9e4d0;border-radius:7px;display:none;
+}
+table{width:100%;border-collapse:collapse;background:white;font-size:13px}
+th,td{padding:11px;border:1px solid var(--border);text-align:left}
+th{background:#e9f3eb;color:var(--dark)}
+.table-wrap{overflow-x:auto}
+.admin-box{background:white;padding:20px;border-radius:9px;border:1px solid var(--border);margin-bottom:20px}
+
+footer{background:#073f29;color:white;padding:35px 0 15px;margin-top:30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+footer h3{margin-bottom:12px}
+footer p,footer a{font-size:13px;color:#d6e6da}
+footer a{display:block;margin:6px 0}
+.copyright{text-align:center;border-top:1px solid #ffffff30;padding-top:15px;margin-top:25px;font-size:12px}
+
+#toast{
+ position:fixed;bottom:20px;right:20px;background:#163d29;color:white;
+ padding:13px 20px;border-radius:7px;display:none;z-index:99;
+ box-shadow:0 4px 15px #0003;
+}
+
+@media(max-width:800px){
+ .menu-btn{display:block}
+ .navinner{flex-wrap:wrap}
+ .navlinks{display:none;width:100%;flex-direction:column;align-items:stretch}
+ .navlinks.show{display:flex}
+ .navlinks a{border-top:1px solid #ffffff20}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .hero h2{font-size:29px}
+}
+@media(max-width:550px){
+ .grid,.form-grid,.footer-grid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ .brand h1{font-size:21px}
+ .brand p{font-size:10px}
+ .hero{padding:50px 0}
+ .hero h2{font-size:26px}
+ .stats{gap:10px}
+ .stat{padding:14px}
+ .section{padding:35px 0}
+ .notice{font-size:12px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+ <div class="container topflex">
+  <span>पशुपालन आयोग पोर्टल</span>
+  <span>हिंदी | English (जल्द उपलब्ध)</span>
+ </div>
+</div>
+
+<header class="header">
+ <div class="container brand">
+  <div class="logo">🐄</div>
+  <div>
+   <h1>पशुपालन आयोग</h1>
+   <p>पशुपालकों के विकास एवं कल्याण के लिए समर्पित पोर्टल</p>
+  </div>
+ </div>
+</header>
+
+<nav>
+ <div class="container navinner">
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <div class="navlinks" id="navlinks">
+   <a href="#" onclick="showPage('home')" class="active">होम</a>
+   <a href="#" onclick="showPage('about')">हमारे बारे में</a>
+   <a href="#" onclick="showPage('schemes')">योजनाएँ</a>
+   <a href="#" onclick="showPage('services')">सेवाएँ</a>
+   <a href="#" onclick="showPage('apply')">ऑनलाइन आवेदन</a>
+   <a href="#" onclick="showPage('complaint')">शिकायत</a>
+   <a href="#" onclick="showPage('track')">आवेदन स्थिति</a>
+   <a href="#" onclick="showPage('contact')">संपर्क</a>
+   <a href="#" onclick="showPage('admin')">Admin</a>
+  </div>
+ </div>
+</nav>
+
+<div class="ticker">
+ <div class="container">
+  <strong>📢 महत्वपूर्ण सूचना:</strong>
+  <span id="tickerText">पशुपालन से जुड़ी जानकारी और सेवाओं के लिए पोर्टल पर आपका स्वागत है।</span>
+ </div>
+</div>
+
+<!-- HOME -->
+<main id="home" class="page active">
+
+<section class="hero">
+ <div class="container hero-content">
+  <h2>पशुपालन को बढ़ावा,<br>किसानों को आत्मनिर्भर बनाना</h2>
+  <p>पशुपालकों को योजनाओं, सुविधाओं और आवश्यक सेवाओं की जानकारी एक ही स्थान पर उपलब्ध कराने का डिजिटल प्रयास।</p>
+  <button class="btn btn-orange" onclick="showPage('apply')">ऑनलाइन आवेदन करें →</button>
+  <button class="btn btn-light" onclick="showPage('schemes')">योजनाएँ देखें</button>
+ </div>
+</section>
+
+<section class="container">
+ <div class="stats">
+  <div class="stat"><div class="emoji">👨‍🌾</div><h3 id="statApplications">0</h3><p>कुल आवेदन</p></div>
+  <div class="stat"><div class="emoji">🐄</div><h3>04+</h3><p>पशुपालन श्रेणियाँ</p></div>
+  <div class="stat"><div class="emoji">📢</div><h3 id="statNotices">3</h3><p>महत्वपूर्ण सूचनाएँ</p></div>
+  <div class="stat"><div class="emoji">📝</div><h3 id="statComplaints">0</h3><p>शिकायतें</p></div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="container">
+  <div class="section-title">
+   <h2>हमारी प्रमुख सेवाएँ</h2>
+   <p>पशुपालकों के लिए उपलब्ध डिजिटल सुविधाएँ</p>
+  </div>
+  <div class="grid">
+   <div class="card"><div class="card-icon">🐄</div><h3>पशुपालक पंजीकरण</h3><p>पशुपालन से जुड़े नागरिक ऑनलाइन आवेदन कर सकते हैं।</p><button class="btn" onclick="showPage('apply')">आवेदन करें</button></div>
+   <div class="card"><div class="card-icon">💉</div><h3>पशु स्वास्थ्य जानकारी</h3><p>पशुओं के स्वास्थ्य और टीकाकरण संबंधी जानकारी।</p><button class="btn" onclick="showPage('services')">अधिक जानें</button></div>
+   <div class="card"><div class="card-icon">📋</div><h3>आवेदन की स्थिति</h3><p>अपने आवेदन की वर्तमान स्थिति देखें।</p><button class="btn" onclick="showPage('track')">स्थिति देखें</button></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" style="background:#eef5ef">
+ <div class="container">
+  <div class="section-title"><h2>नवीनतम सूचनाएँ</h2><p>आयोग से संबंधित महत्वपूर्ण अपडेट</p></div>
+  <div class="notice-list" id="homeNotices"></div>
+ </div>
+</section>
+</main>
+
+<!-- ABOUT -->
+<section id="about" class="page">
+ <div class="page-heading"><div class="container"><h2>हमारे बारे में</h2><p>पशुपालन आयोग का परिचय</p></div></div>
+ <div class="container section">
+  <div class="card">
+   <h3>पशुपालन आयोग का उद्देश्य</h3>
+   <p>पशुपालन आयोग पोर्टल का उद्देश्य पशुपालन क्षेत्र से संबंधित जानकारी, योजनाओं, सेवाओं और ऑनलाइन सुविधाओं को एक डिजिटल मंच पर उपलब्ध कराना है।</p>
+   <br>
+   <h3>हमारा उद्देश्य</h3>
+   <p>पशुपालकों को जागरूक करना, पशुधन के विकास को प्रोत्साहित करना और आधुनिक तकनीक के माध्यम से सेवाओं तक उनकी पहुँच आसान बनाना।</p>
+   <br>
+   <h3>हमारी प्राथमिकताएँ</h3>
+   <ul style="padding-left:22px">
+    <li>पशुपालन क्षेत्र का विकास</li>
+    <li>पशुपालकों को जानकारी उपलब्ध कराना</li>
+    <li>पशु स्वास्थ्य जागरूकता</li>
+    <li>डिजिटल आवेदन एवं शिकायत सुविधा</li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<!-- SCHEMES -->
+<section id="schemes" class="page">
+ <div class="page-heading"><div class="container"><h2>पशुपालन योजनाएँ</h2><p>पशुपालन से संबंधित योजनाओं की जानकारी</p></div></div>
+ <div class="container section">
+  <div class="grid">
+   <div class="card"><div class="card-icon">🐄</div><h3>डेयरी विकास</h3><p>दुग्ध उत्पादन और डेयरी व्यवसाय से संबंधित जानकारी।</p><button class="btn" onclick="showPage('apply')">आवेदन करें</button></div>
+   <div class="card"><div class="card-icon">🐐</div><h3>बकरी पालन</h3><p>बकरी पालन और स्वरोजगार से संबंधित जानकारी।</p><button class="btn" onclick="showPage('apply')">आवेदन करें</button></div>
+   <div class="card"><div class="card-icon">🐔</div><h3>मुर्गी पालन</h3><p>मुर्गी पालन व्यवसाय के लिए उपयोगी जानकारी।</p><button class="btn" onclick="showPage('apply')">आवेदन करें</button></div>
+   <div class="card"><div class="card-icon">🐃</div><h3>पशुधन विकास</h3><p>पशुधन की देखभाल और विकास से संबंधित जानकारी।</p><button class="btn" onclick="showPage('apply')">आवेदन करें</button></div>
+   <div class="card"><div class="card-icon">💉</div><h3>पशु टीकाकरण</h3><p>टीकाकरण और पशु स्वास्थ्य जागरूकता।</p><button class="btn" onclick="showPage('services')">जानकारी देखें</button></div>
+   <div class="card"><div class="card-icon">📚</div><h3>प्रशिक्षण</h3><p>पशुपालन कौशल और प्रशिक्षण संबंधी जानकारी।</p><button class="btn" onclick="showPage('contact')">संपर्क करें</button></div>
+  </div>
+  <p class="help" style="margin-top:20px">नोट: ये सामान्य जानकारी के उदाहरण हैं, किसी सरकारी योजना की स्वीकृति या लाभ का दावा नहीं करते। वास्तविक योजनाओं की पात्रता और नियम आधिकारिक विभाग से सत्यापित करें।</p>
+ </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="page">
+ <div class="page-heading"><div class="container"><h2>हमारी सेवाएँ</h2><p>पशुपालकों के लिए उपयोगी जानकारी</p></div></div>
+ <div class="container section">
+  <div class="grid">
+   <div class="card"><div class="card-icon">🩺</div><h3>पशु स्वास्थ्य</h3><p>पशु बीमार होने पर नजदीकी पशु चिकित्सालय या पशु चिकित्सक से संपर्क करें।</p></div>
+   <div class="card"><div class="card-icon">💉</div><h3>टीकाकरण</h3><p>पशुओं के टीकाकरण के लिए स्थानीय पशु चिकित्सा अधिकारी से सलाह लें।</p></div>
+   <div class="card"><div class="card-icon">🌾</div><h3>पशु आहार</h3><p>पशुओं को संतुलित आहार, स्वच्छ पानी और उचित देखभाल उपलब्ध कराएँ।</p></div>
+   <div class="card"><div class="card-icon">📄</div><h3>पंजीकरण सहायता</h3><p>पोर्टल के माध्यम से पंजीकरण आवेदन जमा करने की सुविधा।</p><button class="btn" onclick="showPage('apply')">आवेदन करें</button></div>
+  </div>
+ </div>
+</section>
+
+<!-- APPLICATION -->
+<section id="apply" class="page">
+ <div class="page-heading"><div class="container"><h2>ऑनलाइन पशुपालक आवेदन</h2><p>अपनी जानकारी भरकर आवेदन जमा करें</p></div></div>
+ <div class="container section">
+  <form class="form-card" id="applicationForm">
+   <h3 style="color:var(--dark);margin-bottom:20px">आवेदक की व्यक्तिगत जानकारी</h3>
+   <div class="form-grid">
+    <div class="field"><label>पूरा नाम *</label><input name="name" required placeholder="अपना नाम लिखें"></div>
+    <div class="field"><label>मोबाइल नंबर *</label><input name="mobile" required pattern="[6-9][0-9]{9}" maxlength="10" placeholder="10 अंकों का नंबर"></div>
+    <div class="field"><label>पिता / पति का नाम</label><input name="father" placeholder="नाम लिखें"></div>
+    <div class="field"><label>ईमेल</label><input type="email" name="email" placeholder="ईमेल पता"></div>
+    <div class="field"><label>राज्य *</label><input name="state" required placeholder="राज्य"></div>
+    <div class="field"><label>जिला *</label><input name="district" required placeholder="जिला"></div>
+    <div class="field full"><label>पूरा पता *</label><textarea name="address" required placeholder="गाँव, पोस्ट, ब्लॉक आदि"></textarea></div>
+   </div>
+   <h3 style="color:var(--dark);margin:25px 0 15px">पशुपालन संबंधी जानकारी</h3>
+   <div class="form-grid">
+    <div class="field"><label>पशु का प्रकार *</label>
+     <select name="animal" required>
+      <option value="">चुनें</option><option>गाय</option><option>भैंस</option><option>बकरी</option><option>भेड़</option><option>मुर्गी</option><option>अन्य</option>
+     </select>
+    </div>
+    <div class="field"><label>पशुओं की संख्या *</label><input name="count" type="number" min="1" required placeholder="संख्या"></div>
+    <div class="field full"><label>आवेदन का उद्देश्य</label>
+     <select name="purpose"><option>पशुपालक पंजीकरण</option><option>योजना संबंधी जानकारी</option><option>प्रशिक्षण</option><option>अन्य</option></select>
+    </div>
+    <div class="field full">
+     <label><input type="checkbox" required style="width:auto"> मैं प्रमाणित करता/करती हूँ कि दी गई जानकारी मेरी जानकारी के अनुसार सही है।</label>
+    </div>
+   </div>
+   <button class="btn" type="submit" style="margin-top:20px">आवेदन जमा करें</button>
+   <div class="result" id="applicationResult"></div>
+   <p class="help" style="margin-top:12px">यह डेमो आवेदन आपके इसी ब्राउज़र में सेव होगा। इसे वास्तविक सरकारी पंजीकरण न समझें।</p>
+  </form>
+ </div>
+</section>
+
+<!-- COMPLAINT -->
+<section id="complaint" class="page">
+ <div class="page-heading"><div class="container"><h2>शिकायत एवं सुझाव</h2><p>अपनी समस्या या सुझाव दर्ज करें</p></div></div>
+ <div class="container section">
+  <form class="form-card" id="complaintForm">
+   <div class="form-grid">
+    <div class="field"><label>नाम *</label><input name="name" required></div>
+    <div class="field"><label>मोबाइल नंबर *</label><input name="mobile" required pattern="[6-9][0-9]{9}" maxlength="10"></div>
+    <div class="field full"><label>शिकायत का विषय *</label><select name="subject"><option>पशु स्वास्थ्य</option><option>योजना संबंधी</option><option>पंजीकरण संबंधी</option><option>अन्य</option></select></div>
+    <div class="field full"><label>अपनी शिकायत लिखें *</label><textarea name="message" required></textarea></div>
+   </div>
+   <button class="btn" style="margin-top:20px">शिकायत जमा करें</button>
+   <div class="result" id="complaintResult"></div>
+  </form>
+ </div>
+</section>
+
+<!-- TRACK -->
+<section id="track" class="page">
+ <div class="page-heading"><div class="container"><h2>आवेदन की स्थिति</h2><p>अपना आवेदन नंबर डालकर स्थिति देखें</p></div></div>
+ <div class="container section">
+  <div class="form-card">
+   <form id="trackForm">
+    <div class="field"><label>आवेदन संख्या *</label><input name="id" required placeholder="उदाहरण: PA123456"></div>
+    <button class="btn" style="margin-top:15px">स्थिति जाँचें</button>
+   </form>
+   <div class="result" id="trackResult"></div>
+  </div>
+ </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="page">
+ <div class="page-heading"><div class="container"><h2>संपर्क करें</h2><p>हमसे संपर्क करने के लिए जानकारी</p></div></div>
+ <div class="container section">
+  <div class="grid">
+   <div class="card"><div class="card-icon">📍</div><h3>कार्यालय का पता</h3><p>यहाँ आयोग का वास्तविक कार्यालय पता जोड़ें।</p></div>
+   <div class="card"><div class="card-icon">📞</div><h3>हेल्पलाइन</h3><p>यहाँ आधिकारिक संपर्क नंबर जोड़ें।</p></div>
+   <div class="card"><div class="card-icon">✉️</div><h3>ईमेल</h3><p>यहाँ आधिकारिक ईमेल पता जोड़ें।</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- ADMIN -->
+<section id="admin" class="page">
+ <div class="page-heading"><div class="container"><h2>Admin Dashboard</h2><p>स्थानीय डेमो डेटा प्रबंधन</p></div></div>
+ <div class="container section">
+  <div id="adminLogin" class="form-card">
+   <h3>Admin Demo Login</h3>
+   <p class="help">डेमो पासवर्ड: admin123</p>
+   <div class="field" style="margin-top:15px"><label>पासवर्ड</label><input id="adminPassword" type="password"></div>
+   <button class="btn" onclick="adminLogin()" style="margin-top:15px">Login</button>
+  </div>
+
+  <div id="adminPanel" style="display:none">
+   <div class="admin-box">
+    <h3>आवेदन प्रबंधन</h3>
+    <p id="adminCounts"></p>
+    <button class="btn btn-small" onclick="exportData()">डेटा CSV डाउनलोड करें</button>
+    <button class="btn btn-small btn-red" onclick="adminLogout()">Logout</button>
+   </div>
+   <div class="admin-box">
+    <h3>आवेदन सूची</h3>
+    <div class="table-wrap"><table><thead><tr><th>आवेदन नंबर</th><th>नाम</th><th>मोबाइल</th><th>जिला</th><th>पशु</th><th>स्थिति</th><th>बदलें</th></tr></thead><tbody id="applicationTable"></tbody></table></div>
+   </div>
+   <div class="admin-box">
+    <h3>शिकायत सूची</h3>
+    <div class="table-wrap"><table><thead><tr><th>शिकायत नंबर</th><th>नाम</th><th>मोबाइल</th><th>विषय</th><th>शिकायत</th></tr></thead><tbody id="complaintTable"></tbody></table></div>
+   </div>
+   <div class="admin-box">
+    <h3>नई सूचना जोड़ें</h3>
+    <form id="noticeForm">
+     <div class="field"><label>सूचना का शीर्षक</label><input name="title" required></div>
+     <button class="btn" style="margin-top:12px">सूचना जोड़ें</button>
+    </form>
+    <div id="adminNoticeList" style="margin-top:15px"></div>
+   </div>
+  </div>
+  <p class="help">सुरक्षा सूचना: यह केवल फ्रंटएंड डेमो है। पासवर्ड और डेटा ब्राउज़र में सुरक्षित सरकारी सर्वर की तरह संरक्षित नहीं हैं। वास्तविक Admin प्रणाली के लिए बैकएंड और सुरक्षित प्रमाणीकरण आवश्यक है।</p>
+ </div>
+</section>
+
+<footer>
+ <div class="container">
+  <div class="footer-grid">
+   <div><h3>🐄 पशुपालन आयोग</h3><p>पशुपालन क्षेत्र में जागरूकता, विकास और डिजिटल सुविधाओं को बढ़ावा देने का प्रयास।</p></div>
+   <div><h3>महत्वपूर्ण लिंक</h3><a href="#" onclick="showPage('about')">हमारे बारे में</a><a href="#" onclick="showPage('schemes')">योजनाएँ</a><a href="#" onclick="showPage('services')">सेवाएँ</a></div>
+   <div><h3>सहायता</h3><a href="#" onclick="showPage('apply')">ऑनलाइन आवेदन</a><a href="#" onclick="showPage('complaint')">शिकायत</a><a href="#" onclick="showPage('contact')">संपर्क करें</a></div>
+  </div>
+  <div class="copyright">
+   © 2026 पशुपालन आयोग पोर्टल | सभी अधिकार सुरक्षित<br>
+   यह एक स्वतंत्र डेमो वेबसाइट है, किसी सरकारी विभाग की आधिकारिक वेबसाइट नहीं।
+  </div>
+ </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+// Local demo storage
+const getData = key => {
+ try{return JSON.parse(localStorage.getItem(key)) || []}
+ catch(e){return []}
+};
+const saveData = (key,data) => localStorage.setItem(key,JSON.stringify(data));
+
+let notices = getData('pa_notices');
+if(!notices.length){
+ notices=[
+  {title:'पशुपालन आयोग पोर्टल पर आपका स्वागत है।',date:new Date().toLocaleDateString('hi-IN')},
+  {title:'पशु स्वास्थ्य और टीकाकरण के लिए पशु चिकित्सक से सलाह लें।',date:new Date().toLocaleDateString('hi-IN')},
+  {title:'ऑनलाइन आवेदन सुविधा डेमो के लिए उपलब्ध है।',date:new Date().toLocaleDateString('hi-IN')}
+ ];
+ saveData('pa_notices',notices);
+}
+
+function toast(message){
+ const el=document.getElementById('toast');
+ el.textContent=message;
+ el.style.display='block';
+ setTimeout(()=>el.style.display='none',3000);
+}
+
+function showPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.navlinks a').forEach(a=>a.classList.remove('active'));
+ const links=document.querySelectorAll('.navlinks a');
+ links.forEach(a=>{
+  if(a.getAttribute('onclick')?.includes("'"+id+"'")) a.classList.add('active');
+ });
+ document.getElementById('navlinks').classList.remove('show');
+ window.scrollTo({top:0,behavior:'smooth'});
+ if(id==='admin' && sessionStorage.getItem('pa_admin')==='yes') renderAdmin();
+ if(id==='home') renderNotices();
+}
+
+function toggleMenu(){
+ document.getElementById('navlinks').classList.toggle('show');
+}
+
+function renderNotices(){
+ notices=getData('pa_notices');
+ const html=notices.map(n=>`
+ <div class="notice">
+  <span>📌 ${escapeHTML(n.title)}</span>
+  <span class="new">${escapeHTML(n.date)}</span>
+ </div>`).join('');
+ document.getElementById('homeNotices').innerHTML=html||'कोई सूचना उपलब्ध नहीं।';
+ document.getElementById('statNotices').textContent=notices.length;
+ document.getElementById('tickerText').textContent=notices[0]?.title||'कोई नई सूचना नहीं।';
+}
+
+function escapeHTML(value){
+ return String(value??'').replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+
+function updateStats(){
+ document.getElementById('statApplications').textContent=getData('pa_apps').length;
+ document.getElementById('statComplaints').textContent=getData('pa_complaints').length;
+}
+
+function newID(prefix){
+ return prefix+Date.now().toString().slice(-8)+Math.floor(Math.random()*90+10);
+}
+
+// Application submission
+document.getElementById('applicationForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ const f=new FormData(this);
+ const app={
+  id:newID('PA'),
+  name:f.get('name'),
+  mobile:f.get('mobile'),
+  father:f.get('father'),
+  email:f.get('email'),
+  state:f.get('state'),
+  district:f.get('district'),
+  address:f.get('address'),
+  animal:f.get('animal'),
+  count:f.get('count'),
+  purpose:f.get('purpose'),
+  status:'प्राप्त हुआ',
+  date:new Date().toLocaleDateString('hi-IN')
+ };
+ const apps=getData('pa_apps');
+ apps.push(app);
+ saveData('pa_apps',apps);
+ document.getElementById('applicationResult').style.display='block';
+ document.getElementById('applicationResult').innerHTML=
+ `<h3>आवेदन सफलतापूर्वक सेव हुआ!</h3>
+ <p>आपका डेमो आवेदन नंबर: <strong>${escapeHTML(app.id)}</strong></p>
+ <p>कृपया इस नंबर को सुरक्षित रखें।</p>
+ <button class="btn btn-small" onclick="copyID('${app.id}')">नंबर कॉपी करें</button>`;
+ this.reset();
+ updateStats();
+ toast('आवेदन सेव हो गया।');
+});
+
+function copyID(id){
+ if(navigator.clipboard){
+  navigator.clipboard.writeText(id).then(()=>toast('आवेदन नंबर कॉपी हो गया।')).catch(()=>toast('नंबर: '+id));
+ }else toast('नंबर: '+id);
+}
+
+// Complaint submission
+document.getElementById('complaintForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ const f=new FormData(this);
+ const item={
+  id:newID('CP'),
+  name:f.get('name'),
+  mobile:f.get('mobile'),
+  subject:f.get('subject'),
+  message:f.get('message'),
+  date:new Date().toLocaleDateString('hi-IN')
+ };
+ const data=getData('pa_complaints');
+ data.push(item);
+ saveData('pa_complaints',data);
+ const result=document.getElementById('complaintResult');
+ result.style.display='block';
+ result.innerHTML=`आपकी शिकायत डेमो में दर्ज हुई। शिकायत नंबर: <strong>${escapeHTML(item.id)}</strong>`;
+ this.reset();
+ updateStats();
+ toast('शिकायत सेव हो गई।');
+});
+
+// Track application
+document.getElementById('trackForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ const id=new FormData(this).get('id').trim().toUpperCase();
+ const app=getData('pa_apps').find(a=>a.id.toUpperCase()===id);
+ const result=document.getElementById('trackResult');
+ result.style.display='block';
+ if(app){
+  result.innerHTML=`
+   <h3>आवेदन की जानकारी</h3>
+   <p><b>आवेदन नंबर:</b> ${escapeHTML(app.id)}</p>
+   <p><b>नाम:</b> ${escapeHTML(app.name)}</p>
+   <p><b>जिला:</b> ${escapeHTML(app.district)}</p>
+   <p><b>पशु:</b> ${escapeHTML(app.animal)}</p>
+   <p><b>दिनांक:</b> ${escapeHTML(app.date)}</p>
+   <p><b>स्थिति:</b> ${escapeHTML(app.status)}</p>`;
+ }else{
+  result.textContent='इस ब्राउज़र में यह आवेदन नंबर नहीं मिला।';
+ }
+});
+
+// Admin demo login
+function adminLogin(){
+ if(document.getElementById('adminPassword').value==='admin123'){
+  sessionStorage.setItem('pa_admin','yes');
+  document.getElementById('adminLogin').style.display='none';
+  document.getElementById('adminPanel').style.display='block';
+  renderAdmin();
+  toast('डेमो Admin Login सफल।');
+ }else{
+  toast('गलत पासवर्ड!');
+ }
+}
+
+function adminLogout(){
+ sessionStorage.removeItem('pa_admin');
+ document.getElementById('adminLogin').style.display='block';
+ document.getElementById('adminPanel').style.display='none';
+ document.getElementById('adminPassword').value='';
+}
+
+function renderAdmin(){
+ if(sessionStorage.getItem('pa_admin')!=='yes') return;
+ const apps=getData('pa_apps');
+ const complaints=getData('pa_complaints');
+ document.getElementById('adminCounts').textContent=
+ `कुल आवेदन: ${apps.length} | कुल शिकायतें: ${complaints.length}`;
+ document.getElementById('applicationTable').innerHTML=apps.map(a=>`
+ <tr>
+ <td>${escapeHTML(a.id)}</td><td>${escapeHTML(a.name)}</td>
+ <td>${escapeHTML(a.mobile)}</td><td>${escapeHTML(a.district)}</td>
+ <td>${escapeHTML(a.animal)}</td>
+ <td>${escapeHTML(a.status)}</td>
+ <td><select onchange="changeStatus('${a.id}',this.value)">
+ ${['प्राप्त हुआ','जाँच में','स्वीकृत','अस्वीकृत'].map(s=>`<option ${s===a.status?'selected':''}>${s}</option>`).join('')}
+ </select></td>
+ </tr>`).join('')||'<tr><td colspan="7">कोई आवेदन नहीं।</td></tr>';
+
+ document.getElementById('complaintTable').innerHTML=complaints.map(c=>`
+ <tr><td>${escapeHTML(c.id)}</td><td>${escapeHTML(c.name)}</td>
+ <td>${escapeHTML(c.mobile)}</td><td>${escapeHTML(c.subject)}</td>
+ <td>${escapeHTML(c.message)}</td></tr>`).join('')||'<tr><td colspan="5">कोई शिकायत नहीं।</td></tr>';
+
+ document.getElementById('adminNoticeList').innerHTML=getData('pa_notices').map((n,i)=>`
+ <p style="padding:7px;border-bottom:1px solid #ddd">
+ ${escapeHTML(n.title)}
+ <button class="btn btn-small btn-red" onclick="deleteNotice(${i})">हटाएँ</button>
+ </p>`).join('');
+}
+
+function changeStatus(id,status){
+ const apps=getData('pa_apps');
+ const app=apps.find(a=>a.id===id);
+ if(app){
+  app.status=status;
+  saveData('pa_apps',apps);
+  renderAdmin();
+  toast('स्थिति अपडेट हुई।');
+ }
+}
+
+document.getElementById('noticeForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ if(sessionStorage.getItem('pa_admin')!=='yes')return;
+ const title=new FormData(this).get('title');
+ const data=getData('pa_notices');
+ data.unshift({title,date:new Date().toLocaleDateString('hi-IN')});
+ saveData('pa_notices',data);
+ this.reset();
+ renderAdmin();
+ renderNotices();
+ toast('नई सूचना जोड़ दी गई।');
+});
+
+function deleteNotice(index){
+ const data=getData('pa_notices');
+ data.splice(index,1);
+ saveData('pa_notices',data);
+ renderAdmin();
+ renderNotices();
+ toast('सूचना हटा दी गई।');
+}
+
+function exportData(){
+ if(sessionStorage.getItem('pa_admin')!=='yes')return;
+ const data=getData('pa_apps');
+ if(!data.length){toast('डाउनलोड के लिए कोई आवेदन नहीं।');return;}
+ const keys=['id','name','mobile','email','state','district','animal','count','status','date'];
+ const csv=[
+  keys.join(','),
+  ...data.map(row=>keys.map(k=>'"'+String(row[k]??'').replace(/"/g,'""')+'"').join(','))
+ ].join('\n');
+ const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;
+ a.download='pashupalan-applications.csv';
+ a.click();
+ URL.revokeObjectURL(url);
+}
+
+renderNotices();
+updateStats();
+
+if(sessionStorage.getItem('pa_admin')==='yes'){
+ document.getElementById('adminLogin').style.display='none';
+ document.getElementById('adminPanel').style.display='block';
+}
+</script>
+
+</body>
+</html>
